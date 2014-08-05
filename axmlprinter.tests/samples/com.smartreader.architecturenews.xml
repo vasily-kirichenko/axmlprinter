@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="2100" android:versionName="2.100" android:installLocation="0" package="com.smartreader.architecturenews">
+  <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="19" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+  <application android:theme="@7F0D007C" android:label="@7F0C000D" android:icon="@7F02005F" android:name="MainApplication" android:allowBackup="true" android:hardwareAccelerated="true" android:supportsRtl="true">
+    <service android:name="com.smartreader.architecturenews.service.DownloadContentService" />
+    <service android:name="com.smartreader.architecturenews.service.CleanFavoriteService" />
+    <activity android:label="@7F0C000D" android:name="com.smartreader.architecturenews.activity.MainActivity" android:configChanges="0x00000FB0">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity android:name="com.smartreader.architecturenews.activity.StoryActivity" android:configChanges="0x00000FB0" />
+    <provider android:name="com.smartreader.architecturenews.database.DatabaseConnector" android:exported="false" android:authorities="com.smartreader.architecturenews.database.contentprovider" android:syncable="false" />
+    <activity android:theme="@android:0103000B" android:name="com.smartreader.architecturenews.widget.AppWidgetConfigure" android:configChanges="0x000000A0">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+      </intent-filter>
+    </activity>
+    <appwidget-provider android:configure="com.smartreader.architecturenews.widget.AppWidgetConfigure" />
+    <receiver android:name="com.smartreader.architecturenews.widget.AppWidget">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+        <action android:name="com.smartreader.architecturenews.widget.SETTINGS_UPDATE" />
+        <action android:name="com.smartreader.architecturenews.widget.UPDATE_WIDGET" />
+        <action android:name="com.smartreader.architecturenews.widget.NEXT" />
+        <action android:name="com.smartreader.architecturenews.widget.PREV" />
+        <action android:name="com.smartreader.architecturenews.widget.REFRESH" />
+      </intent-filter>
+      <meta-data android:name="android.appwidget.provider" android:resource="@7F050000" />
+    </receiver>
+    <service android:name="com.smartreader.architecturenews.widget.AppWidget$UpdateDbService" />
+    <service android:name="com.smartreader.architecturenews.widget.AppWidget$UpdateWidgetService" />
+    <activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity" android:configChanges="0x000000A0" />
+    <activity android:name="com.mopub.mobileads.MoPubActivity" android:configChanges="0x000000A0" />
+    <activity android:name="com.mopub.mobileads.MraidActivity" android:configChanges="0x000000A0" />
+    <activity android:name="com.mopub.mobileads.MraidBrowser" android:configChanges="0x000000A0" />
+    <activity android:theme="@android:01030010" android:name="com.millennialmedia.android.MMActivity" android:configChanges="0x000000B0" />
+    <activity android:name="com.millennialmedia.android.VideoPlayer" android:configChanges="0x000000B0" />
+    <activity android:name="com.google.ads.AdActivity" android:configChanges="0x00000FB0" />
+    <activity android:theme="@android:01030007" android:name="com.burstly.lib.component.networkcomponent.burstly.BurstlyFullscreenActivity" android:configChanges="0x000004B0" />
+    <activity android:name="com.greystripe.sdk.GSFullscreenActivity" android:configChanges="0x000000B0" />
+    <activity android:theme="@android:01030007" android:name="com.burstly.lib.component.networkcomponent.jumptap.JumptapActivity" android:configChanges="0x000000B0" />
+    <activity android:name="com.adsdk.sdk.banner.InAppWebView" android:configChanges="0x00000FB0" />
+    <activity android:name="com.adsdk.sdk.video.RichMediaActivity" android:configChanges="0x00000FB0" android:hardwareAccelerated="false" />
+    <activity android:name="com.adsdk.sdk.mraid.MraidActivity" android:configChanges="0x00000FB0" />
+    <activity android:name="com.appbrain.AppBrainActivity" android:configChanges="0x00000FB0" />
+    <service android:name="com.appbrain.AppBrainService" />
+    <receiver android:name="com.appbrain.ReferrerReceiver" android:exported="true">
+      <intent-filter>
+        <action android:name="com.android.vending.INSTALL_REFERRER" />
+      </intent-filter>
+    </receiver>
+    <activity android:name="com.inmobi.androidsdk.IMBrowserActivity" android:configChanges="0x00000CB0" android:hardwareAccelerated="true" />
+    <receiver android:name="com.inmobi.commons.analytics.androidsdk.IMAdTrackerReceiver" android:enabled="true" android:exported="true">
+      <intent-filter>
+        <action android:name="com.android.vending.INSTALL_REFERRER" />
+      </intent-filter>
+    </receiver>
+    <activity android:name="com.flurry.android.FlurryFullscreenTakeoverActivity" android:configChanges="0x00000FB0" android:hardwareAccelerated="true" />
+    <activity android:name="com.appflood.AFPanelActivity" android:configChanges="0x00000020" />
+    <activity android:theme="@android:0103000F" android:name="com.appflood.AFFullScreenActivity" android:launchMode="2" android:configChanges="0x000000A0" />
+    <activity android:theme="@android:0103000F" android:name="com.appflood.AFListActivity" android:launchMode="2" android:configChanges="0x000000A0">
+      <intent-filter>
+        <action android:name="" />
+      </intent-filter>
+    </activity>
+    <activity android:theme="@android:0103000F" android:name="com.appflood.AFInterstitialActivity" android:launchMode="2" android:screenOrientation="1" android:configChanges="0x000000A0" />
+    <activity android:name="com.inneractive.api.ads.InneractiveFullScreenView" android:configChanges="0x00000480" android:hardwareAccelerated="true" />
+  </application>
+</manifest>

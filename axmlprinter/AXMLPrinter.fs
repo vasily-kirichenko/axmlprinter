@@ -25,15 +25,15 @@ module AXMLPrinter =
     open System.IO
     open axmlprinter.Constants
 
-    type Context = { Reader: BinaryReader
-                     IsUtf8: bool
-                     StringOffsets: int list
-                     Strings: byte list
-                     ResourceIds: uint32 list
-                     PrefixUri: Map<uint32, uint32>
-                     UriPrefix: Map<uint32, uint32>
-                     XmlnsEmitted: bool
-                     OutputXml: string }
+    type internal Context = { Reader: BinaryReader
+                              IsUtf8: bool
+                              StringOffsets: int list
+                              Strings: byte list
+                              ResourceIds: uint32 list
+                              PrefixUri: Map<uint32, uint32>
+                              UriPrefix: Map<uint32, uint32>
+                              XmlnsEmitted: bool
+                              OutputXml: string }
 
     let internal getShort2 (lst: byte list) offset =
         let x = (List.nth lst (offset + 1) &&& 0xFFuy) <<< 8
@@ -78,7 +78,7 @@ module AXMLPrinter =
             let varint = getVarint ctx.Strings offset
             let offset = offset + snd varint
             let length = fst varint
-            decode2  ctx.Strings offset length
+            decode2 ctx.Strings offset length
         else
             let length = getShort2 ctx.Strings offset |> int
             decode ctx.Strings (offset + 2) length
@@ -90,147 +90,150 @@ module AXMLPrinter =
         |> Option.map (sprintf "%s:")
         |> Option.fill ""
 
-    let readLineNumber ctx =
-        do ctx.Reader.ReadInt32() |> ignore // chunkSize
+    let private readLineNumber ctx =
+        do ctx.Reader.ReadBytes(4) |> ignore // chunkSize
         let lineNumber = ctx.Reader.ReadUInt32()
-        do ctx.Reader.ReadInt32() |> ignore // 0xFFFFFFFF
+        do ctx.Reader.ReadBytes(4) |> ignore // 0xFFFFFFFF
         lineNumber
 
-    let rec parse ctx =
-        let chunkType = ctx.Reader.ReadUInt32()
-        match chunkType with
-        | CHUNK_RESOURCEIDS ->
-            let chunkSize = ctx.Reader.ReadUInt32()
-            let resourceIds = [1u .. chunkSize / 4u - 2u] |> List.map (fun _ -> ctx.Reader.ReadUInt32())
-            parse { ctx with ResourceIds = resourceIds }
-        | CHUNK_XML_START_NAMESPACE ->
-            do readLineNumber ctx |> ignore
-            let prefix = ctx.Reader.ReadUInt32()
-            let uri = ctx.Reader.ReadUInt32()
-            parse { ctx with PrefixUri = ctx.PrefixUri.Add(prefix, uri)
-                             UriPrefix = ctx.UriPrefix.Add(uri, prefix) }
-        | CHUNK_XML_END_NAMESPACE ->
-            do ctx.Reader.ReadBytes(8) |> ignore
-            ctx.OutputXml
-        | CHUNK_XML_START_TAG ->
-            do readLineNumber ctx |> ignore
-            let nameSpaceUri = ctx.Reader.ReadUInt32()
-            let nameIdx = ctx.Reader.ReadUInt32()
-            do ctx.Reader.ReadBytes(4) |> ignore // flags
+    let private getAttributeOffset ind = ind * ATTRIBUTE_LENGHT
 
-            let attributeCount = ctx.Reader.ReadUInt32() &&& 0xFFFFu
-            do ctx.Reader.ReadBytes(4) |> ignore // class attribute
+    let private getAttributePrefix ctx ind attributes =
+        let offset = getAttributeOffset ind
+        let uri = List.nth attributes (int(offset + ATTRIBUTE_IX_NAMESPACE_URI))
 
-            let attributes =
-                [1u .. attributeCount * ATTRIBUTE_LENGHT]
-                |> List.mapi (fun ind _ ->
-                    let v = ctx.Reader.ReadUInt32()
-                    match ind with
-                    | ind when (ind - int(ATTRIBUTE_IX_VALUE_TYPE)) % int(ATTRIBUTE_LENGHT) = 0 -> v >>> 24
-                    | _ -> v)
+        let result =
+            ctx.UriPrefix
+            |> Map.tryFind uri
+            |> Option.map (getRaw ctx)
+            |> Option.map (sprintf "%s:")
+            |> Option.fill ""
+        result
 
-            let name = getRaw ctx nameIdx
+    let private getAttributeName ctx ind attributes =
+        let offset = getAttributeOffset ind
+        let name = List.nth attributes (int(offset + ATTRIBUTE_IX_NAME))
+        let result = getRaw ctx name
+        result
 
-            let xmlns =
-                if ctx.XmlnsEmitted = true
-                then ""
-                else ctx.UriPrefix
-                     |> Seq.map (fun p -> sprintf "xmlns:%s=\"%s\"" (getRaw ctx p.Value) (getRaw ctx (ctx.PrefixUri.[p.Value])))
-                     |> String.concat "\n"
+    let private getAttributeValueType ind attributes =
+        let offset = getAttributeOffset ind
+        List.nth attributes (int(offset + ATTRIBUTE_IX_VALUE_TYPE))
 
-            let getAttributeOffset ind = ind * ATTRIBUTE_LENGHT
+    let private getAttributeValueData ind attributes =
+        let offset = getAttributeOffset ind
+        List.nth attributes (int(offset + ATTRIBUTE_IX_VALUE_DATA))
 
-            let getAttributePrefix ctx ind attributes =
-                let offset = getAttributeOffset ind
-                let uri = List.nth attributes (int(offset + ATTRIBUTE_IX_NAMESPACE_URI))
+    let private doGetAttributeValue ctx ind attributes =
+        let offset = getAttributeOffset ind
+        let valueType = List.nth attributes (int(offset + ATTRIBUTE_IX_VALUE_TYPE))
+        if valueType = TYPE_STRING
+        then let valueString = List.nth attributes (int(offset + ATTRIBUTE_IX_VALUE_STRING))
+             getRaw ctx (uint32 valueString)
+        else ""
 
-                let result =
-                    ctx.UriPrefix
-                    |> Map.tryFind uri
-                    |> Option.map (getRaw ctx)
-                    |> Option.map (sprintf "%s:")
-                    |> Option.fill ""
-                result
+    let private getPackage data = if data >>> 24 = 1u then "android:" else ""
 
-            let getAttributeName ctx ind attributes =
-                let offset = getAttributeOffset ind
-                let name = List.nth attributes (int(offset + ATTRIBUTE_IX_NAME))
-                let result = getRaw ctx name
-                result
+    let private complexToFloat data = (float)(data &&& 0xFFFFFF00u) * (List.nth RADIX_MULTS (((int data) >>> 4) &&& 3))
+    let private demensionUnit data = List.nth DIMENSION_UNITS (int(data &&& COMPLEX_UNIT_MASK))
+    let private fractionUnit data = List.nth FRACTION_UNITS (int(data &&& COMPLEX_UNIT_MASK))
 
-            let getAttributeValueType ind attributes =
-                let offset = getAttributeOffset ind
-                List.nth attributes (int(offset + ATTRIBUTE_IX_VALUE_TYPE))
+    let private escape =
+        String.replace "&" "&amp;"
+        >> String.replace "\"" "&quot;"
+        >> String.replace "'" "&apos;"
+        >> String.replace "<" "&lt;"
+        >> String.replace ">" "&gt;"
 
-            let getAttributeValueData ind attributes =
-                let offset = getAttributeOffset ind
-                List.nth attributes (int(offset + ATTRIBUTE_IX_VALUE_DATA))
+    let private getAttributeValue ctx ind (attributes: uint32 list) =
+        let ``type`` = getAttributeValueType ind attributes
+        let data = getAttributeValueData ind attributes
+        match ``type`` with
+        | TYPE_STRING -> doGetAttributeValue ctx ind attributes
+        | TYPE_ATTRIBUTE -> sprintf "?%s%08X" (getPackage data) data
+        | TYPE_REFERENCE -> sprintf "@%s%08X" (getPackage data) data
+        | TYPE_FLOAT -> sprintf "%f" (data |> BitConverter.GetBytes |> (fun bs -> BitConverter.ToSingle(bs, 0)))
+        | TYPE_INT_HEX -> sprintf "0x%08X" data
+        | TYPE_INT_BOOLEAN -> match data with | 0u -> "false" | _ -> "true"
+        | TYPE_DIMENSION -> sprintf "%f%s" (complexToFloat data) (demensionUnit data)
+        | TYPE_FRACTION -> sprintf "%f%s" (complexToFloat data) (fractionUnit data)
+        | ``type`` when ``type`` >= TYPE_FIRST_COLOR_INT && ``type`` <= TYPE_LAST_COLOR_INT -> sprintf "#%08X" data
+        | ``type`` when ``type`` >= TYPE_FIRST_INT && ``type`` <= TYPE_LAST_INT -> sprintf "%d" data
+        | ``type`` -> sprintf "<0x%X, type 0x%02X>" data ``type``
 
-            let doGetAttributeValue ind attributes =
-                let offset = getAttributeOffset ind
-                let valueType = List.nth attributes (int(offset + ATTRIBUTE_IX_VALUE_TYPE))
-                if valueType = TYPE_STRING
-                then let valueString = List.nth attributes (int(offset + ATTRIBUTE_IX_VALUE_STRING))
-                     getRaw ctx (uint32 valueString)
-                else ""
-
-            let getPackage data = if data >>> 24 = 1u then "android:" else ""
-
-            let complexToFloat data = (float)(data &&& 0xFFFFFF00u) * (List.nth RADIX_MULTS (((int data) >>> 4) &&& 3))
-            let demensionUnit data = List.nth DIMENSION_UNITS (int(data &&& COMPLEX_UNIT_MASK))
-            let fractionUnit data = List.nth FRACTION_UNITS (int(data &&& COMPLEX_UNIT_MASK))
-
-            let getAttributeValue ind (attributes: uint32 list) =
-                let ``type`` = getAttributeValueType ind attributes
-                let data = getAttributeValueData ind attributes
-                match ``type`` with
-                | TYPE_STRING -> doGetAttributeValue ind attributes
-                | TYPE_ATTRIBUTE -> sprintf "?%s%08X" (getPackage data) data
-                | TYPE_REFERENCE -> sprintf "@%s%08X" (getPackage data) data
-                | TYPE_FLOAT -> sprintf "%f" (data |> BitConverter.GetBytes |> (fun bs -> BitConverter.ToDouble(bs, 0)))
-                | TYPE_INT_HEX -> sprintf "0x%08X" data
-                | TYPE_INT_BOOLEAN -> match data with | 0u -> "false" | _ -> "true"
-                | TYPE_DIMENSION -> sprintf "%f%s" (complexToFloat data) (demensionUnit data)
-                | TYPE_FRACTION -> sprintf "%f%s" (complexToFloat data) (fractionUnit data)
-                | ``type`` when ``type`` >= TYPE_FIRST_COLOR_INT && ``type`` <= TYPE_LAST_COLOR_INT -> sprintf "#%08X" data
-                | ``type`` when ``type`` >= TYPE_FIRST_INT && ``type`` <= TYPE_LAST_INT -> sprintf "%d" data
-                | ``type`` -> sprintf "<0x%X, type 0x%02X>" data ``type``
-
-            let escape =
-                String.replace "&" "&amp;"
-                >> String.replace "\"" "&quot;"
-                >> String.replace "'" "&apos;"
-                >> String.replace "<" "&lt;"
-                >> String.replace ">" "&gt;"
-
-            let attrs =
-                Seq.init (int attributeCount) uint32
-                |> Seq.map (fun ind -> sprintf "%s%s=\"%s\"" (getAttributePrefix ctx ind attributes)
-                                                             (getAttributeName ctx ind attributes)
-                                                             (escape (getAttributeValue ind attributes)))
-                |> String.concat "\n"
-
-            let prefix = getPrefix ctx nameSpaceUri
-            let xml = sprintf "<%s%s\n%s\n%s>\n" prefix name xmlns attrs
-            parse { ctx with XmlnsEmitted = true
-                             OutputXml = ctx.OutputXml + xml }
-        | CHUNK_XML_END_TAG ->
-            do readLineNumber ctx |> ignore
-            let namespaceUri = ctx.Reader.ReadUInt32()
-            let nameIdx = ctx.Reader.ReadUInt32()
-
-            let prefix = getPrefix ctx namespaceUri
-            let name = getRaw ctx nameIdx
-
-            let xml = sprintf "</%s%s>" prefix name
-            parse { ctx with OutputXml = sprintf "%s%s" ctx.OutputXml xml }
-        | CHUNK_XML_TEXT ->
-            do readLineNumber ctx |> ignore
-            let nameIdx = ctx.Reader.ReadUInt32()
-            do ctx.Reader.ReadBytes(8) |> ignore
-            let xml = sprintf "%s" (getRaw ctx nameIdx)
-            parse { ctx with OutputXml = sprintf "%s%s" ctx.OutputXml xml }
-        | _ -> failwithf "Unknown chunk type = %A" chunkType
+    let rec internal parse ctx =
+        if ctx.Reader.BaseStream.Position = ctx.Reader.BaseStream.Length
+        then ctx.OutputXml
+        else
+            let chunkType = ctx.Reader.ReadUInt32()
+            match chunkType with
+            | CHUNK_RESOURCEIDS ->
+                let chunkSize = ctx.Reader.ReadUInt32()
+                let resourceIds = [1u .. chunkSize / 4u - 2u] |> List.map (fun _ -> ctx.Reader.ReadUInt32())
+                parse { ctx with ResourceIds = resourceIds }
+            | CHUNK_XML_START_NAMESPACE ->
+                do readLineNumber ctx |> ignore
+                let prefix = ctx.Reader.ReadUInt32()
+                let uri = ctx.Reader.ReadUInt32()
+                parse { ctx with PrefixUri = ctx.PrefixUri.Add(prefix, uri)
+                                 UriPrefix = ctx.UriPrefix.Add(uri, prefix) }
+            | CHUNK_XML_END_NAMESPACE ->
+                do readLineNumber ctx |> ignore
+                do ctx.Reader.ReadBytes(8) |> ignore
+                parse ctx
+            | CHUNK_XML_START_TAG ->
+                do readLineNumber ctx |> ignore
+                let nameSpaceUri = ctx.Reader.ReadUInt32()
+                let nameIdx = ctx.Reader.ReadUInt32()
+                do ctx.Reader.ReadBytes(4) |> ignore // flags
+    
+                let attributeCount = ctx.Reader.ReadUInt32() &&& 0xFFFFu
+                do ctx.Reader.ReadBytes(4) |> ignore // class attribute
+    
+                let attributes =
+                    [1u .. attributeCount * ATTRIBUTE_LENGHT]
+                    |> List.mapi (fun ind _ ->
+                        let v = ctx.Reader.ReadUInt32()
+                        match ind with
+                        | ind when (ind - int(ATTRIBUTE_IX_VALUE_TYPE)) % int(ATTRIBUTE_LENGHT) = 0 -> v >>> 24
+                        | _ -> v)
+    
+                let name = getRaw ctx nameIdx
+                let xmlns =
+                    if ctx.XmlnsEmitted = true
+                    then ""
+                    else ctx.UriPrefix
+                         |> Seq.map (fun p -> sprintf "xmlns:%s=\"%s\"" (getRaw ctx p.Value) (getRaw ctx (ctx.PrefixUri.[p.Value])))
+                         |> String.concat "\n"
+    
+                let attrs =
+                    Seq.init (int attributeCount) uint32
+                    |> Seq.map (fun ind -> sprintf "%s%s=\"%s\"" (getAttributePrefix ctx ind attributes)
+                                                                 (getAttributeName ctx ind attributes)
+                                                                 (escape (getAttributeValue ctx ind attributes)))
+                    |> String.concat "\n"
+    
+                let prefix = getPrefix ctx nameSpaceUri
+                let xml = sprintf "<%s%s\n%s\n%s>\n" prefix name xmlns attrs
+                parse { ctx with XmlnsEmitted = true
+                                 OutputXml = ctx.OutputXml + xml }
+            | CHUNK_XML_END_TAG ->
+                do readLineNumber ctx |> ignore
+                let namespaceUri = ctx.Reader.ReadUInt32()
+                let nameIdx = ctx.Reader.ReadUInt32()
+    
+                let prefix = getPrefix ctx namespaceUri
+                let name = getRaw ctx nameIdx
+    
+                let xml = sprintf "</%s%s>" prefix name
+                parse { ctx with OutputXml = sprintf "%s%s" ctx.OutputXml xml }
+            | CHUNK_XML_TEXT ->
+                do readLineNumber ctx |> ignore
+                let nameIdx = ctx.Reader.ReadUInt32()
+                do ctx.Reader.ReadBytes(8) |> ignore
+                let xml = sprintf "%s" (getRaw ctx nameIdx)
+                parse { ctx with OutputXml = sprintf "%s%s" ctx.OutputXml xml }
+            | _ -> failwithf "Unknown chunk type = %A" chunkType
 
     let getXmlFromStream (axmlStream: Stream) =
         use br = new BinaryReader(axmlStream)

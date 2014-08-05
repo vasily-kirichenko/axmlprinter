@@ -30,8 +30,10 @@ let acceptance () =
     let check (packedFile: string, expectedFile: string) =
         use packedFs = IO.File.OpenRead(packedFile)
         let actualXml = AXMLPrinter.getXmlFromStream packedFs
-        printfn "%s" actualXml
         let expectedXml = IO.File.ReadAllText(expectedFile)
         Assert.That(actualXml, Is.EqualTo(expectedXml), sprintf "packed file: %s, expected file: %s" packedFile expectedFile)
 
-    samples |> List.iter check
+    samples
+    |> List.iter (fun (packed, unpacked) ->
+        printfn "%s - %s" packed unpacked
+        check (packed,unpacked))

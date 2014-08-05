@@ -49,8 +49,8 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
-    <Compile Include="XmlBeautifizerTests.fs" />
     <None Include="packages.config" />
+    <Compile Include="XmlBeautifizerTests.fs" />
     <Compile Include="AXMLPrinterTests.fs" />
   </ItemGroup>
   <ItemGroup>

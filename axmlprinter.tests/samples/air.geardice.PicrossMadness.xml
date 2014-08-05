@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1000005" android:versionName="1.0.5" package="air.geardice.PicrossMadness">
+  <application android:label="@7F06000D" android:icon="@7F020001" android:hardwareAccelerated="false">
+    <activity android:theme="@7F070000" android:label="@7F06000D" android:name=".AppEntry" android:launchMode="2" android:screenOrientation="2" android:configChanges="0x000004A0" android:windowSoftInputMode="0x00000012">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+      <meta-data android:name="namespaceVersion" android:value="3.800000" />
+      <meta-data android:name="autoOrients" android:value="true" />
+      <meta-data android:name="fullScreen" android:value="false" />
+      <meta-data android:name="uniqueappversionid" android:value="53150aa6-0b94-41cb-bf81-3b51c67f84ba" />
+      <meta-data android:name="initialcontent" android:value="PicrossMadness.swf" />
+      <meta-data android:name="containsVideo" android:value="false" />
+    </activity>
+  </application>
+  <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="17" />
+  <uses-permission android:name="android.permission.INTERNET" />
+</manifest>
