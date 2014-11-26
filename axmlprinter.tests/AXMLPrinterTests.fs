@@ -4,6 +4,14 @@ open System
 open NUnit.Framework
 open axmlprinter
 
+let private getPath relPath =
+    let codeBase = System.Reflection.Assembly.GetExecutingAssembly().CodeBase
+    let uri = UriBuilder(codeBase)
+    let path = Uri.UnescapeDataString(uri.Path)
+    let currAssembyDirPath = IO.FileInfo(path).Directory.FullName
+    let targetDir = IO.DirectoryInfo(IO.Path.Combine(currAssembyDirPath, relPath))
+    targetDir.FullName
+
 [<Test>]
 let decode () =
     let strings = [ 0; 0; 0; 8; 0
@@ -21,7 +29,10 @@ let decode () =
 
 [<Test>]
 let acceptance () =
-    let packedFileNames = IO.Directory.GetFiles("../../samples/", "*.packed") |> Array.toList
+    let dirPath = getPath("../../samples/axml/")
+    let packedFileNames = IO.Directory.GetFiles(dirPath, "*.packed") |> Array.toList
+    Assert.That(packedFileNames.Length, Is.GreaterThan(0), "no test samples")
+
     let samples =
         packedFileNames
         |> List.map (fun fn -> fn.Substring(0, fn.LastIndexOf(".packed")))
@@ -37,3 +48,16 @@ let acceptance () =
     |> List.iter (fun (packed, unpacked) ->
         printfn "%s - %s" packed unpacked
         check (packed,unpacked))
+
+[<Test>]
+let notaxml () =
+    let checkNotAxml fpath =
+        use fs = IO.File.OpenRead(fpath)
+        let fn () = AXMLPrinter.getXmlFromStream fs |> ignore
+        let exc = Assert.Throws<Exception>(TestDelegate fn)
+        Assert.That(exc.Message, Is.StringContaining("it seems this is not android xml"))
+
+    let dirPath = getPath("../../samples/notaxml/")
+    let notAxmls = IO.Directory.GetFiles("../../samples/notaxml/", "*") |> Array.toList
+    Assert.That(notAxmls.Length, Is.GreaterThan(0), "no test samples")
+    notAxmls |> List.iter checkNotAxml

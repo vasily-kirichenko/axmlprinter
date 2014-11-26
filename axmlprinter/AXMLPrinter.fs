@@ -235,6 +235,12 @@ module AXMLPrinter =
                 parse { ctx with OutputXml = sprintf "%s%s" ctx.OutputXml xml }
             | _ -> failwithf "Unknown chunk type = %A" chunkType
 
+    let private validate name value =
+        // just heuristic to prevent out of memory
+        // maybe threshold should be increased
+        if value > 100 * 1000
+        then failwithf "it seems this is not android xml, %s = %d too large" name value
+
     let getXmlFromStream (axmlStream: Stream) =
         use br = new BinaryReader(axmlStream)
         do br.ReadBytes(8) |> ignore // ?
@@ -249,6 +255,12 @@ module AXMLPrinter =
 
         let stringsOffset = br.ReadInt32()
         let stylesOffset = br.ReadInt32()
+
+        do validate "chunkSize" chunkSize
+        do validate "stringCount" stringCount
+        do validate "styleOffsetCount" styleOffsetCount
+        do validate "stringsOffset" stringsOffset
+        do validate "stylesOffset" stylesOffset
 
         let stringOffsets = [1 .. stringCount] |> List.map (fun _ -> br.ReadInt32())
         [1 .. styleOffsetCount] |> List.iter (fun _ -> br.ReadInt32() |> ignore) // unused style offsets

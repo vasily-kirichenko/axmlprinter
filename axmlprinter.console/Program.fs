@@ -1,7 +1,7 @@
 ﻿open System
 
 [<EntryPoint>]
-let main argv = 
+let main argv =
     match argv with
     | [| axmlpath |] ->
         try
@@ -9,6 +9,6 @@ let main argv =
             let xml = axmlprinter.AXMLPrinter.getXmlFromBytes bytes
             do printfn "%s" xml
         with
-        | ex -> do eprintfn "error was occured: %O" ex
+        | ex -> do eprintfn "error was occured: %s" ex.Message
     | _ -> do printfn "usage: axmlprinter.console <android-xml-file>"
     0
