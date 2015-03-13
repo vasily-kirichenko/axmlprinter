@@ -1,0 +1,23 @@
+type project
+owners
+    Pavel Martynov
+authors 
+    Pavel Martynov
+projectUrl
+    http://github.com/xkrt/axmlprinter
+iconUrl
+    https://raw.githubusercontent.com/xkrt/axmlprinter/master/docs/files/img/logo.png
+licenseUrl
+    http://github.com/xkrt/axmlprinter/blob/master/LICENSE.txt
+requireLicenseAcceptance
+    false
+copyright
+    Copyright 2015
+tags
+    android axml
+summary
+    Unpacker for Android binary XML (AXML) format
+description
+    Unpacker for Android binary XML (AXML) format
+
+
