@@ -341,33 +341,33 @@ Target "All" DoNothing
   ==> "AssemblyInfo"
   ==> "Build"
   ==> "CopyBinaries"
-  ==> "RunTests"
-  =?> ("GenerateReferenceDocs",isLocalBuild)
-  =?> ("GenerateDocs",isLocalBuild)
+  //==> "RunTests"
+  //=?> ("GenerateReferenceDocs",isLocalBuild)
+  //=?> ("GenerateDocs",isLocalBuild)
   ==> "All"
   =?> ("ReleaseDocs",isLocalBuild)
 
 "All"
-#if MONO
-#else
-  =?> ("SourceLink", Pdbstr.tryFind().IsSome )
-#endif
+//#if MONO
+//#else
+  //=?> ("SourceLink", Pdbstr.tryFind().IsSome )
+//#endif
   ==> "NuGet"
   ==> "BuildPackage"
 
-"CleanDocs"
-  ==> "GenerateHelp"
-  ==> "GenerateReferenceDocs"
-  ==> "GenerateDocs"
+//"CleanDocs"
+//  ==> "GenerateHelp"
+//  ==> "GenerateReferenceDocs"
+//  ==> "GenerateDocs"
+//
+//"CleanDocs"
+//  ==> "GenerateHelpDebug"
 
-"CleanDocs"
-  ==> "GenerateHelpDebug"
+//"GenerateHelp"
+//  ==> "KeepRunning"
 
-"GenerateHelp"
-  ==> "KeepRunning"
-
-"ReleaseDocs"
-  ==> "Release"
+//"ReleaseDocs"
+//  ==> "Release"
 
 "BuildPackage"
   ==> "PublishNuget"

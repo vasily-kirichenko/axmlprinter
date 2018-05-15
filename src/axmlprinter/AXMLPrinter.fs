@@ -35,36 +35,36 @@ module AXMLPrinter =
 
     type internal Context = { Reader: BinaryReader
                               IsUtf8: bool
-                              StringOffsets: int list
-                              Strings: byte list
+                              StringOffsets: int[]
+                              Strings: byte[]
                               ResourceIds: uint32 list
                               PrefixUri: Map<uint32, uint32>
                               UriPrefix: Map<uint32, uint32>
                               XmlnsEmitted: bool
                               OutputXml: string }
 
-    let internal getShort2 (lst: byte list) offset =
-        let x = (List.nth lst (offset + 1) &&& 0xFFuy) <<< 8
-        let y = (List.nth lst offset) &&& 0xFFuy
+    let internal getShort2 (lst: byte[]) offset =
+        let x = (lst.[offset + 1] &&& 0xFFuy) <<< 8
+        let y = lst.[offset] &&& 0xFFuy
         let result = x ||| y
         result
 
-    let internal getVarint (lst: byte list) offset =
-        let value = List.nth lst offset |> int
+    let internal getVarint (lst: byte[]) offset =
+        let value = lst.[offset] |> int
         let more = (value &&& 0x80) <> 0
         let value = value &&& 0x7F
         if not more
         then (value, 1)
-        else (value <<< 8 ||| (int(List.nth lst (offset + 1)) &&& 0xFF), 2)
+        else (value <<< 8 ||| (int (lst.[offset + 1]) &&& 0xFF), 2)
 
-    let internal decode strings offset len =
+    let internal decode (strings: byte[]) offset len =
         let len = len * 2
         let len = len + len % 2
 
         let rec loop ind length result =
             if ind < length
             then
-                let t_data = List.nth strings (offset + ind)
+                let t_data = strings.[offset + ind]
                 let newResult = t_data :: result
                 match newResult with
                 | h1 :: h2 :: tail when h1 = 0uy && h2 = 0uy -> List.rev tail
@@ -73,12 +73,12 @@ module AXMLPrinter =
         let res = loop 0 len [] |> List.toArray
         System.Text.Encoding.Unicode.GetString(res)
 
-    let internal decode2 (strings: byte list) offset len =
-        let bytes = [offset .. offset+len] |> List.map (List.nth strings) |> List.toArray
+    let internal decode2 (strings: byte[]) offset len =
+        let bytes = [offset .. offset+len-1] |> List.map (fun x -> strings.[x]) |> List.toArray
         System.Text.Encoding.UTF8.GetString(bytes)
 
     let internal getRaw ctx (idx: uint32) =
-        let offset = List.nth ctx.StringOffsets (int idx)
+        let offset = ctx.StringOffsets.[int idx]
 
         if ctx.IsUtf8
         then
@@ -96,7 +96,7 @@ module AXMLPrinter =
         |> Map.tryFind nameSpaceUri
         |> Option.map (getRaw ctx)
         |> Option.map (sprintf "%s:")
-        |> Option.fill ""
+        |> Option.defaultValue ""
 
     let private readLineNumber ctx =
         do ctx.Reader.ReadBytes(4) |> ignore // chunkSize
@@ -106,45 +106,45 @@ module AXMLPrinter =
 
     let private getAttributeOffset ind = ind * ATTRIBUTE_LENGHT
 
-    let private getAttributePrefix ctx ind attributes =
+    let private getAttributePrefix ctx ind (attributes: uint32[]) =
         let offset = getAttributeOffset ind
-        let uri = List.nth attributes (int(offset + ATTRIBUTE_IX_NAMESPACE_URI))
+        let uri = attributes.[int (offset + ATTRIBUTE_IX_NAMESPACE_URI)]
 
         let result =
             ctx.UriPrefix
             |> Map.tryFind uri
             |> Option.map (getRaw ctx)
             |> Option.map (sprintf "%s:")
-            |> Option.fill ""
+            |> Option.defaultValue ""
         result
 
-    let private getAttributeName ctx ind attributes =
+    let private getAttributeName ctx ind (attributes: uint32[]) =
         let offset = getAttributeOffset ind
-        let name = List.nth attributes (int(offset + ATTRIBUTE_IX_NAME))
+        let name = attributes.[int (offset + ATTRIBUTE_IX_NAME)]
         let result = getRaw ctx name
         result
 
-    let private getAttributeValueType ind attributes =
+    let private getAttributeValueType ind (attributes: uint32[]) =
         let offset = getAttributeOffset ind
-        List.nth attributes (int(offset + ATTRIBUTE_IX_VALUE_TYPE))
+        attributes.[int (offset + ATTRIBUTE_IX_VALUE_TYPE)]
 
-    let private getAttributeValueData ind attributes =
+    let private getAttributeValueData ind (attributes: uint32[]) =
         let offset = getAttributeOffset ind
-        List.nth attributes (int(offset + ATTRIBUTE_IX_VALUE_DATA))
+        attributes.[int (offset + ATTRIBUTE_IX_VALUE_DATA)]
 
-    let private doGetAttributeValue ctx ind attributes =
+    let private doGetAttributeValue ctx ind (attributes: uint32[]) =
         let offset = getAttributeOffset ind
-        let valueType = List.nth attributes (int(offset + ATTRIBUTE_IX_VALUE_TYPE))
+        let valueType = attributes.[int (offset + ATTRIBUTE_IX_VALUE_TYPE)]
         if valueType = TYPE_STRING
-        then let valueString = List.nth attributes (int(offset + ATTRIBUTE_IX_VALUE_STRING))
+        then let valueString = attributes.[int (offset + ATTRIBUTE_IX_VALUE_STRING)]
              getRaw ctx (uint32 valueString)
         else ""
 
     let private getPackage data = if data >>> 24 = 1u then "android:" else ""
 
-    let private complexToFloat data = (float)(data &&& 0xFFFFFF00u) * (List.nth RADIX_MULTS (((int data) >>> 4) &&& 3))
-    let private demensionUnit data = List.nth DIMENSION_UNITS (int(data &&& COMPLEX_UNIT_MASK))
-    let private fractionUnit data = List.nth FRACTION_UNITS (int(data &&& COMPLEX_UNIT_MASK))
+    let private complexToFloat data = (float)(data &&& 0xFFFFFF00u) * (RADIX_MULTS.[((int data) >>> 4) &&& 3])
+    let private demensionUnit data = DIMENSION_UNITS.[int (data &&& COMPLEX_UNIT_MASK)]
+    let private fractionUnit data = FRACTION_UNITS.[int (data &&& COMPLEX_UNIT_MASK)]
 
     let private escape =
         String.replace "&" "&amp;"
@@ -153,7 +153,7 @@ module AXMLPrinter =
         >> String.replace "<" "&lt;"
         >> String.replace ">" "&gt;"
 
-    let private getAttributeValue ctx ind (attributes: uint32 list) =
+    let private getAttributeValue ctx ind (attributes: uint32[]) =
         let ``type`` = getAttributeValueType ind attributes
         let data = getAttributeValueData ind attributes
         match ``type`` with
@@ -199,8 +199,8 @@ module AXMLPrinter =
                 do ctx.Reader.ReadBytes(4) |> ignore // class attribute
     
                 let attributes =
-                    [1u .. attributeCount * ATTRIBUTE_LENGHT]
-                    |> List.mapi (fun ind _ ->
+                    [|1u .. attributeCount * ATTRIBUTE_LENGHT|]
+                    |> Array.mapi (fun ind _ ->
                         let v = ctx.Reader.ReadUInt32()
                         match ind with
                         | ind when (ind - int(ATTRIBUTE_IX_VALUE_TYPE)) % int(ATTRIBUTE_LENGHT) = 0 -> v >>> 24
@@ -274,7 +274,7 @@ module AXMLPrinter =
         do validate "stringsOffset" stringsOffset
         do validate "stylesOffset" stylesOffset
 
-        let stringOffsets = [1 .. stringCount] |> List.map (fun _ -> br.ReadInt32())
+        let stringOffsets = [|1 .. stringCount|] |> Array.map (fun _ -> br.ReadInt32())
         [1 .. styleOffsetCount] |> List.iter (fun _ -> br.ReadInt32() |> ignore) // unused style offsets
 
         let size =
@@ -282,7 +282,7 @@ module AXMLPrinter =
             then stylesOffset - stringsOffset
             else chunkSize - stringsOffset
 
-        let strings = [1 .. size] |> List.map (fun _ -> br.ReadByte())
+        let strings = [|1 .. size|] |> Array.map (fun _ -> br.ReadByte())
 
         if stylesOffset <> 0
         then let size = chunkSize - stylesOffset

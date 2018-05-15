@@ -16,16 +16,18 @@ let private getPath relPath =
 
 [<Test>]
 let decode () =
-    let strings = [ 0; 0; 0; 8; 0
-                    109; 0  // m
-                    97; 0   // a
-                    110; 0  // n
-                    105; 0  // i
-                    102; 0  // f
-                    101; 0  // e
-                    115; 0  // s
-                    116; 0  // t
-                    0; 0; 23 ] |> List.map byte
+    let strings = 
+        [| 0; 0; 0; 8; 0
+           109; 0  // m
+           97; 0   // a
+           110; 0  // n
+           105; 0  // i
+           102; 0  // f
+           101; 0  // e
+           115; 0  // s
+           116; 0  // t
+           0; 0; 23 |] 
+        |> Array.map byte
 
     Assert.That(AXMLPrinter.decode strings 5 8, Is.EqualTo("manifest"))
 
@@ -42,7 +44,7 @@ let acceptance () =
 
     let check (packedFile: string, expectedFile: string) =
         use packedFs = IO.File.OpenRead(packedFile)
-        let actualXml = AXMLPrinter.getXmlFromStream packedFs
+        let actualXml = (AXMLPrinter.getXmlFromStream packedFs)
         let expectedXml = IO.File.ReadAllText(expectedFile)
         Assert.That(actualXml, Is.EqualTo(expectedXml), sprintf "packed file: %s, expected file: %s" packedFile expectedFile)
 
