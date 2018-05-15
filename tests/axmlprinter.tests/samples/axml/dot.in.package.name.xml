@@ -1,1 +1,334 @@
-<?xml version="1.0" encoding="utf-8"?><manifest xmlns:amazon="http://schemas.amazon.com/apk/res/android" xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="33000" android:versionName="3.36" android:installLocation="2" package="com.tinylabproductions.tanks2">    <uses-sdk android:minSdkVersion="17" android:targetSdkVersion="22" />    <supports-screens android:anyDensity="true" android:smallScreens="true" android:normalScreens="true" android:largeScreens="true" android:xlargeScreens="true" />    <uses-feature android:glEsVersion="0x00020000" android:required="true" />    <uses-feature android:name="android.hardware.touchscreen" />    <uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false" />    <uses-feature android:name="android.hardware.touchscreen.multitouch.distinct" android:required="false" />    <uses-permission android:name="android.permission.WAKE_LOCK" />    <uses-permission android:name="android.permission.INTERNET" />    <uses-permission android:name="android.permission.VIBRATE" />    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18" />    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />    <uses-permission android:name="android.permission.READ_PHONE_STATE" />    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />    <uses-permission android:name="android.permission.GET_ACCOUNTS" />    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />    <uses-permission android:name="com.android.vending.BILLING" />    <uses-permission android:name="org.onepf.openiab.permission.BILLING" />    <uses-permission android:name="com.sec.android.iap.permission.BILLING" />    <uses-permission android:name="com.nokia.payment.BILLING" />    <uses-permission android:name="com.slideme.sam.manager.inapp.permission.BILLING" />    <uses-feature android:glEsVersion="0x00010001" />    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />    <permission android:name="com.tinylabproductions.tanks2.permission.C2D_MESSAGE" android:protectionLevel="0x00000002" />    <uses-permission android:name="com.tinylabproductions.tanks2.permission.C2D_MESSAGE" />    <uses-feature android:name="android.hardware.bluetooth" android:required="false" />    <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />    <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS" />    <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT" />    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" />    <uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE" />    <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT" />    <uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE" />    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE" />    <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS" />    <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS" />    <uses-permission android:name="android.permission.READ_APP_BADGE" />    <uses-permission android:name="com.oppo.launcher.permission.READ_SETTINGS" />    <uses-permission android:name="com.oppo.launcher.permission.WRITE_SETTINGS" />    <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_READ" />    <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_WRITE" />    <uses-permission android:name="android.permission.BLUETOOTH" android:required="false" />    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:required="false" />    <application android:label="@7F0E001F" android:icon="@7F070064" android:name="com.tinylabproductions.tlpgame.ExtendedApplication" android:debuggable="false" android:allowBackup="true" android:hardwareAccelerated="true">        <activity android:label="@7F0E001F" android:name="com.prime31.UnityPlayerNativeActivity" android:launchMode="2" android:screenOrientation="10" android:configChanges="0x40000FFF">            <intent-filter>                <action android:name="android.intent.action.MAIN" />                <category android:name="android.intent.category.LAUNCHER" />            </intent-filter>            <meta-data android:name="android.app.lib_name" android:value="unity" />            <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true" />        </activity>        <activity android:label="@7F0E001F" android:name="com.unity3d.player.VideoPlayer" android:screenOrientation="0" android:configChanges="0x40000FFF" />        <receiver android:name="universal.tools.notifications.AlarmBroadcastReceiver" />        <service android:name="universal.tools.notifications.NotificationIntentService" android:exported="true" />        <receiver android:name="universal.tools.notifications.ScheduledNotificationsRestorer">            <intent-filter>                <action android:name="android.intent.action.BOOT_COMPLETED" />            </intent-filter>        </receiver>        <activity android:theme="@android:0103000F" android:name="com.purplebrain.adbuddiz.sdk.AdBuddizActivity" />        <activity android:name="com.adcolony.sdk.AdColonyInterstitialActivity" android:configChanges="0x000004A0" android:hardwareAccelerated="true" />        <activity android:name="com.adcolony.sdk.AdColonyAdViewActivity" android:configChanges="0x000004A0" android:hardwareAccelerated="true" />        <activity android:name="com.aerserv.sdk.view.ASVastInterstitialActivity" android:configChanges="0x00000FB0" />        <activity android:name="com.aerserv.sdk.view.ASWebviewInterstitialActivity" android:configChanges="0x00000FB0" />        <activity android:name="com.aerserv.sdk.view.ASVpaidInterstitalActivity" android:configChanges="0x00000FB0" />        <activity android:name="com.amazon.device.ads.AdActivity" android:configChanges="0x000004A0" />        <activity android:name="com.applovin.adview.AppLovinInterstitialActivity" android:configChanges="0x00000480" />        <activity android:name="com.applovin.adview.AppLovinConfirmationActivity" android:configChanges="0x00000480" />        <meta-data android:name="applovin.sdk.key" android:value="OpN1O9zXEwcuuGKVt56xn18r3Tx0NLIm9gnXql32egxWxG1pM7l79tyCLuDiEVSNBEv_-z1cdz8ZD9MZH5hQze" />        <activity android:theme="@android:01030011" android:name="com.chartboost.sdk.CBImpressionActivity" android:excludeFromRecents="true" android:configChanges="0x000004A0" android:hardwareAccelerated="true" />        <meta-data android:name="com.cuebiq.sdk.AppKey" android:value="@7F0E005C" />        <service android:name="io.huq.sourcekit.HISourceKitService" />        <receiver android:name="io.huq.sourcekit.HIWifiBroadcastReceiver">            <intent-filter android:priority="100">                <action android:name="android.net.wifi.NETWORK_STATE_CHANGED_ACTION" />            </intent-filter>        </receiver>        <receiver android:name="com.inlocomedia.android.location.LocationReceiver" android:exported="false">            <intent-filter>                <action android:name="android.intent.action.BOOT_COMPLETED" />            </intent-filter>        </receiver>        <activity android:theme="@android:01030010" android:name="com.inmobi.rendering.InMobiAdActivity" android:configChanges="0x00000CB0" android:hardwareAccelerated="true" />        <receiver android:name="com.inmobi.commons.core.utilities.uid.ImIdShareBroadCastReceiver" android:enabled="true" android:exported="true">            <intent-filter>                <action android:name="com.inmobi.share.id" />            </intent-filter>        </receiver>        <service android:name="com.inmobi.signals.activityrecognition.ActivityRecognitionManager" android:enabled="true" />        <activity android:name="com.inneractive.api.ads.sdk.InneractiveInternalBrowserActivity" android:configChanges="0x000004A0" />        <activity android:name="com.inneractive.api.ads.sdk.InneractiveInterstitialAdActivity" android:configChanges="0x000004A0" />        <activity android:name="com.kidoz.sdk.api.ui_views.interstitial.KidozAdActivity" android:configChanges="0x00000FB0" />        <activity android:theme="@android:0103000A" android:name="com.kidoz.sdk.api.ui_views.video_unit.VideoUnitActivity" android:configChanges="0x00000FB0" />        <receiver android:name="com.kidoz.sdk.api.receivers.SdkReceiver">            <intent-filter>                <action android:name="android.intent.action.PACKAGE_ADDED" />                <data android:scheme="package" />            </intent-filter>        </receiver>        <activity android:name="com.loopme.AdActivity" android:configChanges="0x000004A0" android:hardwareAccelerated="true" />        <activity android:name="com.loopme.AdBrowserActivity" />        <activity android:name="com.loopme.MraidActivity" android:configChanges="0x000004A0" android:hardwareAccelerated="true" />        <activity android:name="com.loopme.mraid.MraidVideoActivity" android:screenOrientation="0" />        <receiver android:name="com.mobknowsdk.receivers.MInstallReceiver">            <intent-filter android:priority="100">                <action android:name="android.intent.action.PACKAGE_INSTALL" />                <action android:name="android.intent.action.PACKAGE_ADDED" />                <data android:scheme="package" />            </intent-filter>        </receiver>        <activity android:name="com.mobfox.sdk.interstitialads.InterstitialActivity" android:configChanges="0x000000A0" />        <activity android:theme="@android:01030007" android:name="com.mobvista.msdk.reward.player.MVRewardVideoActivity" android:configChanges="0x000004A0" />        <activity android:name="com.mobvista.msdk.interstitial.view.MVInterstitialActivity" android:screenOrientation="1" />        <activity android:name="com.mopub.mobileads.MoPubActivity" android:configChanges="0x000004A0" />        <activity android:name="com.mopub.mobileads.MraidActivity" android:configChanges="0x000004A0" />        <activity android:name="com.mopub.common.MoPubBrowser" android:configChanges="0x000004A0" />        <activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity" android:configChanges="0x000004A0" />        <activity android:name="com.mopub.mobileads.RewardedMraidActivity" android:configChanges="0x000004A0" />        <meta-data android:name="presage_key" android:value="270126" />        <service android:name="io.presage.PresageService" android:enabled="true" android:exported="true" android:process=":remote">            <intent-filter>                <action android:name="io.presage.PresageService.PIVOT" />            </intent-filter>        </service>        <activity android:theme="@android:01030010" android:name="io.presage.activities.PresageActivity" android:configChanges="0x000004B0" android:hardwareAccelerated="true">            <intent-filter>                <action android:name="io.presage.intent.action.LAUNCH_WEBVIEW" />                <category android:name="android.intent.category.DEFAULT" />            </intent-filter>        </activity>        <receiver android:name="io.presage.receiver.NetworkChangeReceiver">            <intent-filter>                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />                <action android:name="io.presage.receiver.NetworkChangeReceiver.ONDESTROY" />            </intent-filter>        </receiver>        <receiver android:name="io.presage.receiver.AlarmReceiver" />        <provider android:name="io.presage.provider.PresageProvider" android:enabled="true" android:exported="true" android:authorities="com.tinylabproductions.tanks2.PresageProvider" />        <receiver android:name="com.oneaudience.sdk.OneAudienceReceiver" android:enabled="true" android:exported="true">            <intent-filter>                <action android:name="android.intent.action.PACKAGE_REMOVED" />                <action android:name="android.intent.action.PACKAGE_REPLACED" />                <action android:name="android.intent.action.PACKAGE_ADDED" />                <data android:scheme="package" />            </intent-filter>            <intent-filter>                <action android:name="com.oneaudience.action.CONFIGURATION" />            </intent-filter>        </receiver>        <receiver android:name="com.opensignal.datacollection.schedules.monitors.InstallReferrerReceiver" android:exported="true" android:process=":ndc_background_sdk" />        <receiver android:name="com.opensignal.datacollection.AppUpgradeReceiver" android:process=":ndc_background_sdk">            <intent-filter>                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />            </intent-filter>        </receiver>        <receiver android:name="com.opensignal.datacollection.schedules.monitors.BootReceiver" android:process=":ndc_background_sdk">            <intent-filter>                <action android:name="android.intent.action.BOOT_COMPLETED" />                <action android:name="com.opensignal.IS_DATA_COLLECTOR" />            </intent-filter>        </receiver>        <receiver android:name="com.opensignal.datacollection.schedules.monitors.BatteryLowReceiver" android:process=":ndc_background_sdk">            <intent-filter>                <action android:name="android.intent.action.BATTERY_LOW" />            </intent-filter>        </receiver>        <receiver android:name="com.opensignal.datacollection.schedules.monitors.BatteryOkayReceiver" android:process=":ndc_background_sdk">            <intent-filter>                <action android:name="android.intent.action.BATTERY_OKAY" />            </intent-filter>        </receiver>        <receiver android:name="com.opensignal.datacollection.schedules.monitors.PowerConnectedReceiver" android:process=":ndc_background_sdk">            <intent-filter>                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />            </intent-filter>        </receiver>        <receiver android:name="com.opensignal.datacollection.schedules.monitors.PowerDisconnectedReceiver" android:process=":ndc_background_sdk">            <intent-filter>                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />            </intent-filter>        </receiver>        <receiver android:name="com.opensignal.datacollection.schedules.timebased.PeriodicReceiver" android:process=":ndc_background_sdk" />        <receiver android:name="com.opensignal.datacollection.schedules.timebased.OneShotReceiver" android:process=":ndc_background_sdk" />        <receiver android:name="com.opensignal.datacollection.schedules.monitors.WifiChangeReceiver" android:process=":ndc_background_sdk">            <intent-filter>                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />                <action android:name="android.net.wifi.STATE_CHANGE" />                <action android:name="android.net.wifi.supplicant.CONNECTION_CHANGE" />            </intent-filter>        </receiver>        <receiver android:name="com.opensignal.datacollection.schedules.monitors.PhoneStateReceiver" android:enabled="true" android:process=":ndc_background_sdk">            <intent-filter>                <action android:name="android.intent.action.PHONE_STATE" />            </intent-filter>        </receiver>        <receiver android:name="com.opensignal.datacollection.schedules.monitors.IntensiveDataTransferReceiver" android:process=":ndc_background_sdk">            <intent-filter>                <action android:name="com.opensignal.action.INTENSIVE_DATA_TRANSFER_ON" />                <action android:name="com.opensignal.action.INTENSIVE_DATA_TRANSFER_OFF" />            </intent-filter>        </receiver>        <receiver android:name="com.opensignal.datacollection.schedules.monitors.WifiDisconnectedReceiver" android:process=":ndc_background_sdk" />        <service android:label="opensignal-sdk" android:name="com.opensignal.datacollection.routines.RoutineService" android:exported="false" android:process=":ndc_background_sdk" />        <service android:label="opensignal-sdk" android:name="com.opensignal.datacollection.CollectionRoutinesService" android:exported="false" android:process=":ndc_background_sdk" />        <activity android:theme="@android:01030011" android:name="org.onepf.openiab.UnityProxyActivity" android:launchMode="2" android:configChanges="0x40000FFF" />        <receiver android:name="com.amazon.device.iap.ResponseReceiver">            <intent-filter>                <action android:name="com.amazon.inapp.purchasing.NOTIFY" android:permission="com.amazon.inapp.purchasing.Permission.NOTIFY" />            </intent-filter>        </receiver>        <activity android:name="rm.com.android.sdk.RmInterstitial" android:configChanges="0x000004A0" />        <activity android:name="com.smaato.soma.interstitial.InterstitialActivity" android:screenOrientation="0" android:configChanges="0x000004A0" android:resizeableActivity="false" />        <activity android:name="com.smaato.soma.ExpandedBannerActivity" android:screenOrientation="0" android:configChanges="0x000004A0" android:resizeableActivity="false" />        <activity android:name="com.smaato.soma.video.VASTAdActivity" android:screenOrientation="0" android:configChanges="0x000004A0" android:resizeableActivity="false" />        <activity android:theme="@android:0103000A" android:label="SAFullscreenVideoAd" android:name="tv.superawesome.sdk.publisher.SAVideoAd" android:configChanges="0x000004A0" />        <activity android:theme="@android:0103000A" android:label="SAInterstitialAd" android:name="tv.superawesome.sdk.publisher.SAInterstitialAd" android:configChanges="0x000004A0" />        <activity android:theme="@android:0103000A" android:label="SAAppWall" android:name="tv.superawesome.sdk.publisher.SAAppWall" android:screenOrientation="1" android:configChanges="0x000004A0" />        <activity android:theme="@android:01030071" android:label="SABumperPage" android:name="tv.superawesome.lib.sabumperpage.SABumperPage" android:excludeFromRecents="true" android:configChanges="0x000004A0" />        <service android:name="tv.superawesome.lib.sanetwork.asynctask.SAAsyncTask$SAAsync" android:permission="tv.superawesome.sdk.SuperAwesomeSDK" android:exported="false" />        <activity android:name="com.ironsource.sdk.controller.ControllerActivity" android:configChanges="0x00000480" android:hardwareAccelerated="true" />        <activity android:theme="@android:0103000F" android:name="com.ironsource.sdk.controller.InterstitialActivity" android:configChanges="0x00000480" android:hardwareAccelerated="true" />        <activity android:theme="@android:0103000F" android:name="com.ironsource.sdk.controller.OpenUrlActivity" android:configChanges="0x00000480" android:hardwareAccelerated="true" />        <activity android:name="com.youappi.ai.sdk.AdActivity" android:configChanges="0x00000480" />        <receiver android:name="com.tinylabproductions.tlplib.referrer.InstallReferrerReceiver" android:exported="true">            <intent-filter>                <action android:name="com.android.vending.INSTALL_REFERRER" />            </intent-filter>        </receiver>        <activity android:name="com.tinylabproductions.tlplib.video_player.AndroidVideoPlayer" android:screenOrientation="0" />        <service android:name="com.google.android.gms.tagmanager.TagManagerService" android:enabled="true" android:exported="false" />        <activity android:name="com.google.android.gms.tagmanager.TagManagerPreviewActivity" android:exported="true" android:noHistory="true">            <intent-filter>                <data android:scheme="tagmanager.c.com.tinylabproductions.tanks2" />                <action android:name="android.intent.action.VIEW" />                <category android:name="android.intent.category.DEFAULT" />                <category android:name="android.intent.category.BROWSABLE" />            </intent-filter>        </activity>        <receiver android:name="com.google.android.gms.measurement.AppMeasurementReceiver" android:enabled="true" android:exported="false" />        <receiver android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver" android:permission="android.permission.INSTALL_PACKAGES" android:enabled="true" android:exported="true">            <intent-filter>                <action android:name="com.android.vending.INSTALL_REFERRER" />            </intent-filter>        </receiver>        <service android:name="com.google.android.gms.measurement.AppMeasurementService" android:enabled="true" android:exported="false" />        <service android:name="com.google.android.gms.measurement.AppMeasurementJobService" android:permission="android.permission.BIND_JOB_SERVICE" android:enabled="true" android:exported="false" />        <service android:name="com.appnext.core.AdsService" />        <activity android:theme="@android:01030007" android:name="com.appnext.ads.interstitial.InterstitialActivity" android:configChanges="0x000004A0" android:hardwareAccelerated="true" />        <activity android:theme="@android:01030007" android:name="com.appnext.ads.fullscreen.FullscreenActivity" android:hardwareAccelerated="true" />        <activity android:theme="@android:0103000F" android:name="com.google.android.gms.ads.AdActivity" android:exported="false" android:configChanges="0x00000FB0" />        <service android:name="com.google.firebase.messaging.FirebaseMessagingService" android:exported="true">            <intent-filter android:priority="4294966796">                <action android:name="com.google.firebase.MESSAGING_EVENT" />            </intent-filter>        </service>        <receiver android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver" android:permission="com.google.android.c2dm.permission.SEND" android:exported="true">            <intent-filter>                <action android:name="com.google.android.c2dm.intent.RECEIVE" />                <category android:name="com.tinylabproductions.tanks2" />            </intent-filter>        </receiver>        <service android:name="com.google.firebase.iid.FirebaseInstanceIdService" android:exported="true">            <intent-filter android:priority="4294966796">                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />            </intent-filter>        </service>        <activity android:theme="@android:01030010" android:name="com.google.firebase.auth.internal.FederatedSignInActivity" android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN" android:exported="true" android:excludeFromRecents="true" android:launchMode="3" />        <activity android:theme="@7F0F011F" android:name="com.google.android.gms.appinvite.PreviewActivity" android:exported="true">            <intent-filter>                <action android:name="com.google.android.gms.appinvite.ACTION_PREVIEW" />                <category android:name="android.intent.category.DEFAULT" />            </intent-filter>        </activity>        <provider android:name="com.google.firebase.provider.FirebaseInitProvider" android:exported="false" android:authorities="com.tinylabproductions.tanks2.firebaseinitprovider" android:initOrder="100" />        <activity android:theme="@android:01030010" android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity" android:exported="false" android:excludeFromRecents="true" />        <service android:name="com.google.android.gms.auth.api.signin.RevocationBoundService" android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" android:exported="true" />        <receiver android:name="com.google.android.gms.cast.framework.media.MediaIntentReceiver" />        <service android:name="com.google.android.gms.cast.framework.media.MediaNotificationService" />        <service android:name="com.google.android.gms.cast.framework.ReconnectionService" />        <receiver android:name="com.areametrics.areametricssdk.AMLocationUpdatesBroadcastReceiver" android:exported="true">            <intent-filter>                <action android:name="com.areametrics.areametricssdk.AMLocationUpdatesBroadcastReceiver.ACTION_PROCESS_UPDATES" />            </intent-filter>        </receiver>        <receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver" android:enabled="true" android:exported="false" />        <service android:name="com.google.android.gms.analytics.AnalyticsService" android:enabled="true" android:exported="false" />        <service android:name="com.google.android.gms.analytics.AnalyticsJobService" android:permission="android.permission.BIND_JOB_SERVICE" android:enabled="true" android:exported="false" />        <receiver android:name="com.cuebiq.cuebiqsdk.receiver.CoverageReceiver">            <intent-filter>                <action android:name="android.location.PROVIDERS_CHANGED" />                <action android:name="android.intent.action.BOOT_COMPLETED" />            </intent-filter>        </receiver>        <provider android:name="com.cuebiq.cuebiqsdk.model.CuebiqSDKProvider" android:exported="false" android:authorities="com.tinylabproductions.tanks2.CuebiqSDKProvider" />        <activity android:theme="@android:01030010" android:name="com.google.android.gms.common.api.GoogleApiActivity" android:exported="false" />        <meta-data android:name="com.google.android.gms.version" android:value="@7F090005" />        <service android:name="io.huq.sourcekit.HIGeofenceTransitionsService" />        <activity android:theme="@7F0F0124" android:name="com.inlocomedia.android.ads.AdActivity" android:configChanges="0x00000FB0" android:hardwareAccelerated="true" />        <activity android:theme="@7F0F0125" android:name="com.inlocomedia.android.ads.VideoAdActivity" android:configChanges="0x00000FB0" android:hardwareAccelerated="true" />        <receiver android:name="com.inlocomedia.android.ads.AdReceiver" android:exported="false" />        <service android:name="com.inlocomedia.android.location.InLocoMediaService" android:exported="false" />        <activity android:theme="@android:01030007" android:name="com.unity3d.ads.adunit.AdUnitActivity" android:configChanges="0x40000FFF" android:hardwareAccelerated="true" />        <activity android:theme="@android:01030011" android:name="com.unity3d.ads.adunit.AdUnitTransparentActivity" android:configChanges="0x40000FFF" android:hardwareAccelerated="true" />        <activity android:theme="@android:01030011" android:name="com.unity3d.ads.adunit.AdUnitTransparentSoftwareActivity" android:configChanges="0x40000FFF" android:hardwareAccelerated="false" />        <activity android:theme="@android:01030007" android:name="com.unity3d.ads.adunit.AdUnitSoftwareActivity" android:configChanges="0x40000FFF" android:hardwareAccelerated="false" />        <service android:name="com.appnext.base.services.OperationService" android:enabled="true" android:exported="false" />        <service android:name="com.appnext.base.services.ReceiverService" android:persistent="true" android:enabled="true" android:exported="false" />        <receiver android:name="com.appnext.base.receivers.imp.bootreceiver" android:enabled="true">            <intent-filter>                <action android:name="android.intent.action.BOOT_COMPLETED" />            </intent-filter>        </receiver>        <receiver android:name="org.altbeacon.beacon.startup.StartupBroadcastReceiver">            <intent-filter>                <action android:name="android.intent.action.BOOT_COMPLETED" />                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />            </intent-filter>        </receiver>        <service android:label="beacon" android:name="org.altbeacon.beacon.service.BeaconService" android:enabled="true" android:exported="false" android:isolatedProcess="false" />        <service android:name="org.altbeacon.beacon.BeaconIntentProcessor" android:enabled="true" android:exported="false" />        <service android:name="org.altbeacon.beacon.service.ScanJob" android:permission="android.permission.BIND_JOB_SERVICE" />        <activity android:theme="@7F0F0124" android:name="com.inlocomedia.android.core.InLocoMediaActivity" android:configChanges="0x00000FB0" />    </application></manifest>
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:amazon="http://schemas.amazon.com/apk/res/android" xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="33000" android:versionName="3.36" android:installLocation="2" package="com.tinylabproductions.tanks2">
+  <uses-sdk android:minSdkVersion="17" android:targetSdkVersion="22" />
+  <supports-screens android:anyDensity="true" android:smallScreens="true" android:normalScreens="true" android:largeScreens="true" android:xlargeScreens="true" />
+  <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+  <uses-feature android:name="android.hardware.touchscreen" />
+  <uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false" />
+  <uses-feature android:name="android.hardware.touchscreen.multitouch.distinct" android:required="false" />
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.VIBRATE" />
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+  <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+  <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+  <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+  <uses-permission android:name="com.android.vending.BILLING" />
+  <uses-permission android:name="org.onepf.openiab.permission.BILLING" />
+  <uses-permission android:name="com.sec.android.iap.permission.BILLING" />
+  <uses-permission android:name="com.nokia.payment.BILLING" />
+  <uses-permission android:name="com.slideme.sam.manager.inapp.permission.BILLING" />
+  <uses-feature android:glEsVersion="0x00010001" />
+  <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+  <permission android:name="com.tinylabproductions.tanks2.permission.C2D_MESSAGE" android:protectionLevel="0x00000002" />
+  <uses-permission android:name="com.tinylabproductions.tanks2.permission.C2D_MESSAGE" />
+  <uses-feature android:name="android.hardware.bluetooth" android:required="false" />
+  <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
+  <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />
+  <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS" />
+  <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT" />
+  <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" />
+  <uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE" />
+  <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT" />
+  <uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE" />
+  <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE" />
+  <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS" />
+  <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS" />
+  <uses-permission android:name="android.permission.READ_APP_BADGE" />
+  <uses-permission android:name="com.oppo.launcher.permission.READ_SETTINGS" />
+  <uses-permission android:name="com.oppo.launcher.permission.WRITE_SETTINGS" />
+  <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_READ" />
+  <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_WRITE" />
+  <uses-permission android:name="android.permission.BLUETOOTH" android:required="false" />
+  <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:required="false" />
+  <application android:label="@7F0E001F" android:icon="@7F070064" android:name="com.tinylabproductions.tlpgame.ExtendedApplication" android:debuggable="false" android:allowBackup="true" android:hardwareAccelerated="true">
+    <activity android:label="@7F0E001F" android:name="com.prime31.UnityPlayerNativeActivity" android:launchMode="2" android:screenOrientation="10" android:configChanges="0x40000FFF">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+      <meta-data android:name="android.app.lib_name" android:value="unity" />
+      <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true" />
+    </activity>
+    <activity android:label="@7F0E001F" android:name="com.unity3d.player.VideoPlayer" android:screenOrientation="0" android:configChanges="0x40000FFF" />
+    <receiver android:name="universal.tools.notifications.AlarmBroadcastReceiver" />
+    <service android:name="universal.tools.notifications.NotificationIntentService" android:exported="true" />
+    <receiver android:name="universal.tools.notifications.ScheduledNotificationsRestorer">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+      </intent-filter>
+    </receiver>
+    <activity android:theme="@android:0103000F" android:name="com.purplebrain.adbuddiz.sdk.AdBuddizActivity" />
+    <activity android:name="com.adcolony.sdk.AdColonyInterstitialActivity" android:configChanges="0x000004A0" android:hardwareAccelerated="true" />
+    <activity android:name="com.adcolony.sdk.AdColonyAdViewActivity" android:configChanges="0x000004A0" android:hardwareAccelerated="true" />
+    <activity android:name="com.aerserv.sdk.view.ASVastInterstitialActivity" android:configChanges="0x00000FB0" />
+    <activity android:name="com.aerserv.sdk.view.ASWebviewInterstitialActivity" android:configChanges="0x00000FB0" />
+    <activity android:name="com.aerserv.sdk.view.ASVpaidInterstitalActivity" android:configChanges="0x00000FB0" />
+    <activity android:name="com.amazon.device.ads.AdActivity" android:configChanges="0x000004A0" />
+    <activity android:name="com.applovin.adview.AppLovinInterstitialActivity" android:configChanges="0x00000480" />
+    <activity android:name="com.applovin.adview.AppLovinConfirmationActivity" android:configChanges="0x00000480" />
+    <meta-data android:name="applovin.sdk.key" android:value="OpN1O9zXEwcuuGKVt56xn18r3Tx0NLIm9gnXql32egxWxG1pM7l79tyCLuDiEVSNBEv_-z1cdz8ZD9MZH5hQze" />
+    <activity android:theme="@android:01030011" android:name="com.chartboost.sdk.CBImpressionActivity" android:excludeFromRecents="true" android:configChanges="0x000004A0" android:hardwareAccelerated="true" />
+    <meta-data android:name="com.cuebiq.sdk.AppKey" android:value="@7F0E005C" />
+    <service android:name="io.huq.sourcekit.HISourceKitService" />
+    <receiver android:name="io.huq.sourcekit.HIWifiBroadcastReceiver">
+      <intent-filter android:priority="100">
+        <action android:name="android.net.wifi.NETWORK_STATE_CHANGED_ACTION" />
+      </intent-filter>
+    </receiver>
+    <receiver android:name="com.inlocomedia.android.location.LocationReceiver" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+      </intent-filter>
+    </receiver>
+    <activity android:theme="@android:01030010" android:name="com.inmobi.rendering.InMobiAdActivity" android:configChanges="0x00000CB0" android:hardwareAccelerated="true" />
+    <receiver android:name="com.inmobi.commons.core.utilities.uid.ImIdShareBroadCastReceiver" android:enabled="true" android:exported="true">
+      <intent-filter>
+        <action android:name="com.inmobi.share.id" />
+      </intent-filter>
+    </receiver>
+    <service android:name="com.inmobi.signals.activityrecognition.ActivityRecognitionManager" android:enabled="true" />
+    <activity android:name="com.inneractive.api.ads.sdk.InneractiveInternalBrowserActivity" android:configChanges="0x000004A0" />
+    <activity android:name="com.inneractive.api.ads.sdk.InneractiveInterstitialAdActivity" android:configChanges="0x000004A0" />
+    <activity android:name="com.kidoz.sdk.api.ui_views.interstitial.KidozAdActivity" android:configChanges="0x00000FB0" />
+    <activity android:theme="@android:0103000A" android:name="com.kidoz.sdk.api.ui_views.video_unit.VideoUnitActivity" android:configChanges="0x00000FB0" />
+    <receiver android:name="com.kidoz.sdk.api.receivers.SdkReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.PACKAGE_ADDED" />
+        <data android:scheme="package" />
+      </intent-filter>
+    </receiver>
+    <activity android:name="com.loopme.AdActivity" android:configChanges="0x000004A0" android:hardwareAccelerated="true" />
+    <activity android:name="com.loopme.AdBrowserActivity" />
+    <activity android:name="com.loopme.MraidActivity" android:configChanges="0x000004A0" android:hardwareAccelerated="true" />
+    <activity android:name="com.loopme.mraid.MraidVideoActivity" android:screenOrientation="0" />
+    <receiver android:name="com.mobknowsdk.receivers.MInstallReceiver">
+      <intent-filter android:priority="100">
+        <action android:name="android.intent.action.PACKAGE_INSTALL" />
+        <action android:name="android.intent.action.PACKAGE_ADDED" />
+        <data android:scheme="package" />
+      </intent-filter>
+    </receiver>
+    <activity android:name="com.mobfox.sdk.interstitialads.InterstitialActivity" android:configChanges="0x000000A0" />
+    <activity android:theme="@android:01030007" android:name="com.mobvista.msdk.reward.player.MVRewardVideoActivity" android:configChanges="0x000004A0" />
+    <activity android:name="com.mobvista.msdk.interstitial.view.MVInterstitialActivity" android:screenOrientation="1" />
+    <activity android:name="com.mopub.mobileads.MoPubActivity" android:configChanges="0x000004A0" />
+    <activity android:name="com.mopub.mobileads.MraidActivity" android:configChanges="0x000004A0" />
+    <activity android:name="com.mopub.common.MoPubBrowser" android:configChanges="0x000004A0" />
+    <activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity" android:configChanges="0x000004A0" />
+    <activity android:name="com.mopub.mobileads.RewardedMraidActivity" android:configChanges="0x000004A0" />
+    <meta-data android:name="presage_key" android:value="270126" />
+    <service android:name="io.presage.PresageService" android:enabled="true" android:exported="true" android:process=":remote">
+      <intent-filter>
+        <action android:name="io.presage.PresageService.PIVOT" />
+      </intent-filter>
+    </service>
+    <activity android:theme="@android:01030010" android:name="io.presage.activities.PresageActivity" android:configChanges="0x000004B0" android:hardwareAccelerated="true">
+      <intent-filter>
+        <action android:name="io.presage.intent.action.LAUNCH_WEBVIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
+    <receiver android:name="io.presage.receiver.NetworkChangeReceiver">
+      <intent-filter>
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+        <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+        <action android:name="io.presage.receiver.NetworkChangeReceiver.ONDESTROY" />
+      </intent-filter>
+    </receiver>
+    <receiver android:name="io.presage.receiver.AlarmReceiver" />
+    <provider android:name="io.presage.provider.PresageProvider" android:enabled="true" android:exported="true" android:authorities="com.tinylabproductions.tanks2.PresageProvider" />
+    <receiver android:name="com.oneaudience.sdk.OneAudienceReceiver" android:enabled="true" android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.PACKAGE_REMOVED" />
+        <action android:name="android.intent.action.PACKAGE_REPLACED" />
+        <action android:name="android.intent.action.PACKAGE_ADDED" />
+        <data android:scheme="package" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="com.oneaudience.action.CONFIGURATION" />
+      </intent-filter>
+    </receiver>
+    <receiver android:name="com.opensignal.datacollection.schedules.monitors.InstallReferrerReceiver" android:exported="true" android:process=":ndc_background_sdk" />
+    <receiver android:name="com.opensignal.datacollection.AppUpgradeReceiver" android:process=":ndc_background_sdk">
+      <intent-filter>
+        <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+      </intent-filter>
+    </receiver>
+    <receiver android:name="com.opensignal.datacollection.schedules.monitors.BootReceiver" android:process=":ndc_background_sdk">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+        <action android:name="com.opensignal.IS_DATA_COLLECTOR" />
+      </intent-filter>
+    </receiver>
+    <receiver android:name="com.opensignal.datacollection.schedules.monitors.BatteryLowReceiver" android:process=":ndc_background_sdk">
+      <intent-filter>
+        <action android:name="android.intent.action.BATTERY_LOW" />
+      </intent-filter>
+    </receiver>
+    <receiver android:name="com.opensignal.datacollection.schedules.monitors.BatteryOkayReceiver" android:process=":ndc_background_sdk">
+      <intent-filter>
+        <action android:name="android.intent.action.BATTERY_OKAY" />
+      </intent-filter>
+    </receiver>
+    <receiver android:name="com.opensignal.datacollection.schedules.monitors.PowerConnectedReceiver" android:process=":ndc_background_sdk">
+      <intent-filter>
+        <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+      </intent-filter>
+    </receiver>
+    <receiver android:name="com.opensignal.datacollection.schedules.monitors.PowerDisconnectedReceiver" android:process=":ndc_background_sdk">
+      <intent-filter>
+        <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+      </intent-filter>
+    </receiver>
+    <receiver android:name="com.opensignal.datacollection.schedules.timebased.PeriodicReceiver" android:process=":ndc_background_sdk" />
+    <receiver android:name="com.opensignal.datacollection.schedules.timebased.OneShotReceiver" android:process=":ndc_background_sdk" />
+    <receiver android:name="com.opensignal.datacollection.schedules.monitors.WifiChangeReceiver" android:process=":ndc_background_sdk">
+      <intent-filter>
+        <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+        <action android:name="android.net.wifi.STATE_CHANGE" />
+        <action android:name="android.net.wifi.supplicant.CONNECTION_CHANGE" />
+      </intent-filter>
+    </receiver>
+    <receiver android:name="com.opensignal.datacollection.schedules.monitors.PhoneStateReceiver" android:enabled="true" android:process=":ndc_background_sdk">
+      <intent-filter>
+        <action android:name="android.intent.action.PHONE_STATE" />
+      </intent-filter>
+    </receiver>
+    <receiver android:name="com.opensignal.datacollection.schedules.monitors.IntensiveDataTransferReceiver" android:process=":ndc_background_sdk">
+      <intent-filter>
+        <action android:name="com.opensignal.action.INTENSIVE_DATA_TRANSFER_ON" />
+        <action android:name="com.opensignal.action.INTENSIVE_DATA_TRANSFER_OFF" />
+      </intent-filter>
+    </receiver>
+    <receiver android:name="com.opensignal.datacollection.schedules.monitors.WifiDisconnectedReceiver" android:process=":ndc_background_sdk" />
+    <service android:label="opensignal-sdk" android:name="com.opensignal.datacollection.routines.RoutineService" android:exported="false" android:process=":ndc_background_sdk" />
+    <service android:label="opensignal-sdk" android:name="com.opensignal.datacollection.CollectionRoutinesService" android:exported="false" android:process=":ndc_background_sdk" />
+    <activity android:theme="@android:01030011" android:name="org.onepf.openiab.UnityProxyActivity" android:launchMode="2" android:configChanges="0x40000FFF" />
+    <receiver android:name="com.amazon.device.iap.ResponseReceiver">
+      <intent-filter>
+        <action android:name="com.amazon.inapp.purchasing.NOTIFY" android:permission="com.amazon.inapp.purchasing.Permission.NOTIFY" />
+      </intent-filter>
+    </receiver>
+    <activity android:name="rm.com.android.sdk.RmInterstitial" android:configChanges="0x000004A0" />
+    <activity android:name="com.smaato.soma.interstitial.InterstitialActivity" android:screenOrientation="0" android:configChanges="0x000004A0" android:resizeableActivity="false" />
+    <activity android:name="com.smaato.soma.ExpandedBannerActivity" android:screenOrientation="0" android:configChanges="0x000004A0" android:resizeableActivity="false" />
+    <activity android:name="com.smaato.soma.video.VASTAdActivity" android:screenOrientation="0" android:configChanges="0x000004A0" android:resizeableActivity="false" />
+    <activity android:theme="@android:0103000A" android:label="SAFullscreenVideoAd" android:name="tv.superawesome.sdk.publisher.SAVideoAd" android:configChanges="0x000004A0" />
+    <activity android:theme="@android:0103000A" android:label="SAInterstitialAd" android:name="tv.superawesome.sdk.publisher.SAInterstitialAd" android:configChanges="0x000004A0" />
+    <activity android:theme="@android:0103000A" android:label="SAAppWall" android:name="tv.superawesome.sdk.publisher.SAAppWall" android:screenOrientation="1" android:configChanges="0x000004A0" />
+    <activity android:theme="@android:01030071" android:label="SABumperPage" android:name="tv.superawesome.lib.sabumperpage.SABumperPage" android:excludeFromRecents="true" android:configChanges="0x000004A0" />
+    <service android:name="tv.superawesome.lib.sanetwork.asynctask.SAAsyncTask$SAAsync" android:permission="tv.superawesome.sdk.SuperAwesomeSDK" android:exported="false" />
+    <activity android:name="com.ironsource.sdk.controller.ControllerActivity" android:configChanges="0x00000480" android:hardwareAccelerated="true" />
+    <activity android:theme="@android:0103000F" android:name="com.ironsource.sdk.controller.InterstitialActivity" android:configChanges="0x00000480" android:hardwareAccelerated="true" />
+    <activity android:theme="@android:0103000F" android:name="com.ironsource.sdk.controller.OpenUrlActivity" android:configChanges="0x00000480" android:hardwareAccelerated="true" />
+    <activity android:name="com.youappi.ai.sdk.AdActivity" android:configChanges="0x00000480" />
+    <receiver android:name="com.tinylabproductions.tlplib.referrer.InstallReferrerReceiver" android:exported="true">
+      <intent-filter>
+        <action android:name="com.android.vending.INSTALL_REFERRER" />
+      </intent-filter>
+    </receiver>
+    <activity android:name="com.tinylabproductions.tlplib.video_player.AndroidVideoPlayer" android:screenOrientation="0" />
+    <service android:name="com.google.android.gms.tagmanager.TagManagerService" android:enabled="true" android:exported="false" />
+    <activity android:name="com.google.android.gms.tagmanager.TagManagerPreviewActivity" android:exported="true" android:noHistory="true">
+      <intent-filter>
+        <data android:scheme="tagmanager.c.com.tinylabproductions.tanks2" />
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+      </intent-filter>
+    </activity>
+    <receiver android:name="com.google.android.gms.measurement.AppMeasurementReceiver" android:enabled="true" android:exported="false" />
+    <receiver android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver" android:permission="android.permission.INSTALL_PACKAGES" android:enabled="true" android:exported="true">
+      <intent-filter>
+        <action android:name="com.android.vending.INSTALL_REFERRER" />
+      </intent-filter>
+    </receiver>
+    <service android:name="com.google.android.gms.measurement.AppMeasurementService" android:enabled="true" android:exported="false" />
+    <service android:name="com.google.android.gms.measurement.AppMeasurementJobService" android:permission="android.permission.BIND_JOB_SERVICE" android:enabled="true" android:exported="false" />
+    <service android:name="com.appnext.core.AdsService" />
+    <activity android:theme="@android:01030007" android:name="com.appnext.ads.interstitial.InterstitialActivity" android:configChanges="0x000004A0" android:hardwareAccelerated="true" />
+    <activity android:theme="@android:01030007" android:name="com.appnext.ads.fullscreen.FullscreenActivity" android:hardwareAccelerated="true" />
+    <activity android:theme="@android:0103000F" android:name="com.google.android.gms.ads.AdActivity" android:exported="false" android:configChanges="0x00000FB0" />
+    <service android:name="com.google.firebase.messaging.FirebaseMessagingService" android:exported="true">
+      <intent-filter android:priority="4294966796">
+        <action android:name="com.google.firebase.MESSAGING_EVENT" />
+      </intent-filter>
+    </service>
+    <receiver android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver" android:permission="com.google.android.c2dm.permission.SEND" android:exported="true">
+      <intent-filter>
+        <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+        <category android:name="com.tinylabproductions.tanks2" />
+      </intent-filter>
+    </receiver>
+    <service android:name="com.google.firebase.iid.FirebaseInstanceIdService" android:exported="true">
+      <intent-filter android:priority="4294966796">
+        <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+      </intent-filter>
+    </service>
+    <activity android:theme="@android:01030010" android:name="com.google.firebase.auth.internal.FederatedSignInActivity" android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN" android:exported="true" android:excludeFromRecents="true" android:launchMode="3" />
+    <activity android:theme="@7F0F011F" android:name="com.google.android.gms.appinvite.PreviewActivity" android:exported="true">
+      <intent-filter>
+        <action android:name="com.google.android.gms.appinvite.ACTION_PREVIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
+    <provider android:name="com.google.firebase.provider.FirebaseInitProvider" android:exported="false" android:authorities="com.tinylabproductions.tanks2.firebaseinitprovider" android:initOrder="100" />
+    <activity android:theme="@android:01030010" android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity" android:exported="false" android:excludeFromRecents="true" />
+    <service android:name="com.google.android.gms.auth.api.signin.RevocationBoundService" android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" android:exported="true" />
+    <receiver android:name="com.google.android.gms.cast.framework.media.MediaIntentReceiver" />
+    <service android:name="com.google.android.gms.cast.framework.media.MediaNotificationService" />
+    <service android:name="com.google.android.gms.cast.framework.ReconnectionService" />
+    <receiver android:name="com.areametrics.areametricssdk.AMLocationUpdatesBroadcastReceiver" android:exported="true">
+      <intent-filter>
+        <action android:name="com.areametrics.areametricssdk.AMLocationUpdatesBroadcastReceiver.ACTION_PROCESS_UPDATES" />
+      </intent-filter>
+    </receiver>
+    <receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver" android:enabled="true" android:exported="false" />
+    <service android:name="com.google.android.gms.analytics.AnalyticsService" android:enabled="true" android:exported="false" />
+    <service android:name="com.google.android.gms.analytics.AnalyticsJobService" android:permission="android.permission.BIND_JOB_SERVICE" android:enabled="true" android:exported="false" />
+    <receiver android:name="com.cuebiq.cuebiqsdk.receiver.CoverageReceiver">
+      <intent-filter>
+        <action android:name="android.location.PROVIDERS_CHANGED" />
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+      </intent-filter>
+    </receiver>
+    <provider android:name="com.cuebiq.cuebiqsdk.model.CuebiqSDKProvider" android:exported="false" android:authorities="com.tinylabproductions.tanks2.CuebiqSDKProvider" />
+    <activity android:theme="@android:01030010" android:name="com.google.android.gms.common.api.GoogleApiActivity" android:exported="false" />
+    <meta-data android:name="com.google.android.gms.version" android:value="@7F090005" />
+    <service android:name="io.huq.sourcekit.HIGeofenceTransitionsService" />
+    <activity android:theme="@7F0F0124" android:name="com.inlocomedia.android.ads.AdActivity" android:configChanges="0x00000FB0" android:hardwareAccelerated="true" />
+    <activity android:theme="@7F0F0125" android:name="com.inlocomedia.android.ads.VideoAdActivity" android:configChanges="0x00000FB0" android:hardwareAccelerated="true" />
+    <receiver android:name="com.inlocomedia.android.ads.AdReceiver" android:exported="false" />
+    <service android:name="com.inlocomedia.android.location.InLocoMediaService" android:exported="false" />
+    <activity android:theme="@android:01030007" android:name="com.unity3d.ads.adunit.AdUnitActivity" android:configChanges="0x40000FFF" android:hardwareAccelerated="true" />
+    <activity android:theme="@android:01030011" android:name="com.unity3d.ads.adunit.AdUnitTransparentActivity" android:configChanges="0x40000FFF" android:hardwareAccelerated="true" />
+    <activity android:theme="@android:01030011" android:name="com.unity3d.ads.adunit.AdUnitTransparentSoftwareActivity" android:configChanges="0x40000FFF" android:hardwareAccelerated="false" />
+    <activity android:theme="@android:01030007" android:name="com.unity3d.ads.adunit.AdUnitSoftwareActivity" android:configChanges="0x40000FFF" android:hardwareAccelerated="false" />
+    <service android:name="com.appnext.base.services.OperationService" android:enabled="true" android:exported="false" />
+    <service android:name="com.appnext.base.services.ReceiverService" android:persistent="true" android:enabled="true" android:exported="false" />
+    <receiver android:name="com.appnext.base.receivers.imp.bootreceiver" android:enabled="true">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+      </intent-filter>
+    </receiver>
+    <receiver android:name="org.altbeacon.beacon.startup.StartupBroadcastReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+        <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+        <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+      </intent-filter>
+    </receiver>
+    <service android:label="beacon" android:name="org.altbeacon.beacon.service.BeaconService" android:enabled="true" android:exported="false" android:isolatedProcess="false" />
+    <service android:name="org.altbeacon.beacon.BeaconIntentProcessor" android:enabled="true" android:exported="false" />
+    <service android:name="org.altbeacon.beacon.service.ScanJob" android:permission="android.permission.BIND_JOB_SERVICE" />
+    <activity android:theme="@7F0F0124" android:name="com.inlocomedia.android.core.InLocoMediaActivity" android:configChanges="0x00000FB0" />
+  </application>
+</manifest>

@@ -46,6 +46,7 @@ let acceptance () =
         use packedFs = IO.File.OpenRead(packedFile)
         let actualXml = (AXMLPrinter.getXmlFromStream packedFs)
         let expectedXml = IO.File.ReadAllText(expectedFile)
+        File.WriteAllText(@"d:\__" + Path.GetFileName expectedFile, actualXml)
         Assert.That(actualXml, Is.EqualTo(expectedXml), sprintf "packed file: %s, expected file: %s" packedFile expectedFile)
 
     samples
