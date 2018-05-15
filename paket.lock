@@ -1,26 +1,31 @@
+RESTRICTION: == net46
 NUGET
-  remote: https://nuget.org/api/v2
-  specs:
-    FAKE (3.23.0)
-    FSharp.Compiler.Service (0.0.86)
-    FSharp.Formatting (2.7.5)
-      FSharp.Compiler.Service (>= 0.0.82)
-      FSharpVSPowerTools.Core (>= 1.7.0)
-    FSharpVSPowerTools.Core (1.7.0)
-      FSharp.Compiler.Service (>= 0.0.81)
-    Microsoft.Bcl (1.1.10)
-      Microsoft.Bcl.Build (>= 1.0.14)
-    Microsoft.Bcl.Build (1.0.21)
-    Microsoft.Net.Http (2.2.29)
-      Microsoft.Bcl (>= 1.1.10)
-      Microsoft.Bcl.Build (>= 1.0.14)
-    NUnit (2.6.4)
-    NUnit.Runners (2.6.4)
-    Octokit (0.7.3)
-      Microsoft.Net.Http
-    SourceLink.Fake (0.4.2)
+  remote: https://www.nuget.org/api/v2
+    FAKE (4.64.13)
+    FSharp.Compiler.Service (2.0.0.6)
+    FSharp.Core (4.3.4)
+    FSharp.Formatting (2.14.4)
+      FSharp.Compiler.Service (2.0.0.6)
+      FSharpVSPowerTools.Core (>= 2.3 < 2.4)
+    FSharpVSPowerTools.Core (2.3)
+      FSharp.Compiler.Service (>= 2.0.0.3)
+    NUnit (3.10.1)
+    NUnit.ConsoleRunner (3.8)
+    NUnit.Extension.NUnitProjectLoader (3.6)
+    NUnit.Extension.NUnitV2Driver (3.7)
+    NUnit.Extension.NUnitV2ResultWriter (3.6)
+    NUnit.Extension.TeamCityEventListener (1.0.3)
+    NUnit.Extension.VSProjectLoader (3.7)
+    NUnit.Runners (3.8)
+      NUnit.ConsoleRunner (>= 3.8)
+      NUnit.Extension.NUnitProjectLoader (>= 3.5)
+      NUnit.Extension.NUnitV2Driver (>= 3.6)
+      NUnit.Extension.NUnitV2ResultWriter (>= 3.5)
+      NUnit.Extension.TeamCityEventListener (>= 1.0.3)
+      NUnit.Extension.VSProjectLoader (>= 3.7)
+    Octokit (0.29)
+    SourceLink.Fake (1.1)
 GITHUB
   remote: fsharp/FAKE
-  specs:
-    modules/Octokit/Octokit.fsx (8c43fc5a6b2af40e207e38eb37159454b238c10d)
-      Octokit
+    modules/Octokit/Octokit.fsx (d099facbe19ed1676e66c74fef295baa43a73c66)
+      Octokit (>= 0.20)

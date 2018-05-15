@@ -1,6 +1,8 @@
 ﻿module axmlprinter.tests.AXMLPrinterTests
 
 open System
+open System.IO
+open System.Reflection
 open NUnit.Framework
 open axmlprinter
 
@@ -53,11 +55,10 @@ let acceptance () =
 let notaxml () =
     let checkNotAxml fpath =
         use fs = IO.File.OpenRead(fpath)
-        let fn () = AXMLPrinter.getXmlFromStream fs |> ignore
-        let exc = Assert.Throws<Exception>(TestDelegate fn)
-        Assert.That(exc.Message, Is.StringContaining("it seems this is not android xml"))
+        let exc = Assert.Throws<Exception>(fun () -> AXMLPrinter.getXmlFromStream fs |> ignore)
+        Assert.That(exc.Message, Does.Contain("it seems this is not android xml"))
 
     let dirPath = getPath("../../samples/notaxml/")
-    let notAxmls = IO.Directory.GetFiles("../../samples/notaxml/", "*") |> Array.toList
+    let notAxmls = IO.Directory.GetFiles(dirPath, "*") |> Array.toList
     Assert.That(notAxmls.Length, Is.GreaterThan(0), "no test samples")
     notAxmls |> List.iter checkNotAxml
