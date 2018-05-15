@@ -3,9 +3,9 @@ framework: net46
 
 nuget FSharp.Core
 nuget FSharp.Formatting
-nuget NUnit 
-nuget NUnit.Runners
-nuget FAKE
+nuget NUnit ~> 2
+nuget NUnit.Runners ~> 2
+nuget FAKE ~> 4
 nuget SourceLink.Fake
 
 github fsharp/FAKE modules/Octokit/Octokit.fsx
