@@ -5,13 +5,13 @@ open System.Reflection
 [<assembly: AssemblyTitleAttribute("axmlprinter.console")>]
 [<assembly: AssemblyProductAttribute("axmlprinter")>]
 [<assembly: AssemblyDescriptionAttribute("Unpacker for Android binary XML (AXML) format")>]
-[<assembly: AssemblyVersionAttribute("1.0.1")>]
-[<assembly: AssemblyFileVersionAttribute("1.0.1")>]
+[<assembly: AssemblyVersionAttribute("1.0.3")>]
+[<assembly: AssemblyFileVersionAttribute("1.0.3")>]
 do ()
 
 module internal AssemblyVersionInformation =
     let [<Literal>] AssemblyTitle = "axmlprinter.console"
     let [<Literal>] AssemblyProduct = "axmlprinter"
     let [<Literal>] AssemblyDescription = "Unpacker for Android binary XML (AXML) format"
-    let [<Literal>] AssemblyVersion = "1.0.1"
-    let [<Literal>] AssemblyFileVersion = "1.0.1"
+    let [<Literal>] AssemblyVersion = "1.0.3"
+    let [<Literal>] AssemblyFileVersion = "1.0.3"

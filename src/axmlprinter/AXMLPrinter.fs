@@ -10,15 +10,16 @@ module internal XmlBeautifizer =
 
     let beautifize (xml: string) =
         let xdoc = XDocument.Parse(xml)
-        xdoc.DescendantNodes()
-        |> Seq.choose (function :? XElement as xel -> Some xel | _ -> None)
-        |> Seq.filter (fun xel -> not xel.HasElements)
-        |> Seq.iter (fun xel -> xel.RemoveNodes())
+        
+        for xel in xdoc.DescendantNodes() do
+            match xel with
+            | :? XElement as xel when not xel.HasElements ->
+                xel.RemoveNodes()
+            | _ -> ()
 
         use sw = new Utf8StringWriter()
         xdoc.Save(sw)
         sw.GetStringBuilder().ToString()
-
 
 /// Documentation for AXMLPrinter
 ///
@@ -298,7 +299,8 @@ module AXMLPrinter =
                         XmlnsEmitted = false
                         OutputXml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" }
         let uglyXml = parse context
-        XmlBeautifizer.beautifize uglyXml
+        try XmlBeautifizer.beautifize uglyXml
+        with _ -> uglyXml
 
     /// Try to unpack axml
     ///
