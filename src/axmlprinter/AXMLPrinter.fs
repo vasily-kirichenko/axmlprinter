@@ -245,10 +245,10 @@ module AXMLPrinter =
             | _ -> failwithf "Unknown chunk type = %A" chunkType
 
     let private validate name value =
-        // just heuristic to prevent out of memory
-        // maybe threshold should be increased
-        if value > 100 * 1000
-        then failwithf "it seems this is not android xml, %s = %d too large" name value
+        // Just heuristic to prevent out of memory. Maybe threshold should be increased.
+        let maxSize = 1024 * 1024 // 1MB
+        if value > maxSize then 
+            failwithf "It seems this is not Android XML, '%s' has size %d, which is larger than maximum allowed size = %d" name value maxSize
 
     /// Try to unpack axml
     ///

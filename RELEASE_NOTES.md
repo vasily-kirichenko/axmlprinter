@@ -1,3 +1,6 @@
+#### 1.0.4
+* Increase maximum allowed part size to 1MB
+
 #### 1.0.3
 * AXMLPrinter.getXmlFromStream returns original XML string if beautifize fails
 

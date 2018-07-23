@@ -59,7 +59,7 @@ let notaxml () =
     let checkNotAxml fpath =
         use fs = IO.File.OpenRead(fpath)
         let exc = Assert.Throws<Exception>(fun () -> AXMLPrinter.getXmlFromStream fs |> ignore)
-        Assert.That(exc.Message, Does.Contain("it seems this is not android xml"))
+        Assert.That(exc.Message, Does.Contain("It seems this is not Android XML"))
 
     let dirPath = getPath("../../samples/notaxml/")
     let notAxmls = IO.Directory.GetFiles(dirPath, "*") |> Array.toList
